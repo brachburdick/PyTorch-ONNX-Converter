@@ -27,6 +27,11 @@ input_ids = tokens["input_ids"]
 # Export to ONNX
 torch.onnx.export(model, input_ids, output_directory, export_params=True, verbose=True)
 
+# Quantize your model
+# Define source file, quantizedOutputDirectory, and weight type
+quantSourceFile = output_directory
+quant_output_directory = "distilbert-emotion_int8.onnx"
+quantization.quantize_dynamic(quantSourceFile, quant_output_directory, weight_type = quantization.QuantType.QUInt8)
 
 #The snippet below can be uncommented to test your model conversion.
 #____________________________________________________________________________
